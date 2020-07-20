@@ -16,8 +16,8 @@ char auth[] = "ISbbvKpXcRDQgqxj5inIfv2Ro3nnKkdj";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "ASUS";
-char pass[] = "9515968191";
+char ssid[] = "HOBBY KIT";
+char pass[] = "123456789";
 
   BLYNK_WRITE(V1) { // VOLUME UP
   if (param.asInt() == 0) {
