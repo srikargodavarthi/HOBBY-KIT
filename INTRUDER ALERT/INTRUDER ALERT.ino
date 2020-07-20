@@ -15,8 +15,8 @@ char auth[] = "tcspQqDg9kWAv_d1-7go-Ny8E293EdOP";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "ASUS";
-char pass[] = "9515968192";
+char ssid[] = "HOBBY KIT";
+char pass[] = "123456789";
 void setup() {
   
   Serial.begin (9600);
