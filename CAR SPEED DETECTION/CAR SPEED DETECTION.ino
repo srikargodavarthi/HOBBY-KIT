@@ -9,8 +9,8 @@
 
  char auth[] = "G0D-6tbWyPPtIMoF2nVKvRU-57B0eGIy";  //auth token by blynk app
 
-char ssid[] = "BEZAWADA";        //ssid ie wifi name            
-char pass[] = "00000009";    //password "":
+char ssid[] = "HOBBY KIT";        //ssid ie wifi name            
+char pass[] = "123456789";    //password "":
 
 
 
