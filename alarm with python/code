@@ -1,0 +1,14 @@
+import datetime
+import pyttsx3
+
+h = int(input("Enter hour: "))
+m = int(input("Enter min: "))
+ampm = input("Enter am or pm : ")
+
+if ampm == 'pm':
+    hour = h + 12
+while 1 == 1:
+    if h == datetime.datetime.now().hour and m == datetime.datetime.now().minute:
+        engine = pyttsx3.init()
+        engine.say("hey wake up ")
+        engine.runAndWait()
