@@ -1,0 +1,250 @@
+import os
+import sys
+import datetime
+import pyttsx3
+import speech_recognition as sr
+import pyjokes
+import wolframalpha
+import webbrowser
+import smtplib
+import random
+import requests
+import time
+import wikipedia
+
+engine = pyttsx3.init('sapi5')
+
+client = wolframalpha.Client('Get your own key')
+
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0].id)
+
+
+def talk(audio) -> object:
+    print('jesssi::   ' + audio)
+    engine.say(audio)
+    engine.runAndWait()
+
+
+def greetMe():
+    CurrentHour = int(datetime.datetime.now().hour)
+    if CurrentHour >= 0 and CurrentHour < 12:
+        talk('Good Morning!')
+
+    elif CurrentHour >= 12 and CurrentHour < 18:
+        talk('Good Afternoon!')
+
+    elif CurrentHour >= 18 and CurrentHour != 0:
+        talk('Good Evening!')
+
+
+greetMe()
+
+talk('tell me a secret word ')
+
+
+def GivenCommand():
+    k = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        k.pause_threshold = 1
+        audio = k.listen(source, phrase_time_limit=5)
+    try:
+        Input = k.recognize_google(audio, language='en-in')
+        print('srikar:: ' + Input + '\n')
+
+    except sr.UnknownValueError:
+
+        Input = GivenCommand()
+
+    return Input
+
+
+Input = GivenCommand()
+Input = Input.lower()
+if __name__ == '__main__':
+
+    if 'srikar' in Input:
+        talk('hey srikar i am jessi your personal assistant')
+        talk('how can i help you ')
+
+        if __name__ == '__main__':
+
+            while True:
+
+                Input = GivenCommand()
+                Input = Input.lower()
+
+                if 'open google' in Input:
+                    talk('what do you want in gogle')
+                    cm = GivenCommand()
+                    webbrowser.open(f'{cm}')
+                elif 'open chrome' in Input:
+                    talk('ok')
+                    webbrowser.open('www.google.com')
+
+                elif 'open gmail' in Input:
+                    talk('sure')
+                    webbrowser.open('www.gmail.com')
+
+                elif 'open youtube' in Input:
+                    talk('what do you want in youtube')
+                    y=GivenCommand()
+                    webbrowser.open('https://www.youtube.co.in/search?q=' +y)
+
+                elif "what\'s up" in Input or 'how are you' in Input:
+                    setReplies = ['Just doing some stuff!', 'I am good!', 'Nice!', 'I am amazing and full of power']
+                    talk(random.choice(setReplies))
+
+                elif "who are you" in Input or 'where are you' in Input or 'what are you' in Input:
+                    setReplies = [' I am jessi', 'In your system', 'I am an example of AI']
+                    talk(random.choice(setReplies))
+
+                elif 'email' in Input:
+                    talk('Who is the recipient? ')
+                    recipient = GivenCommand()
+
+                    if 'me' in recipient:
+                        try:
+                            talk('What should I say? ')
+                            content = GivenCommand()
+
+                            server = smtplib.SMTP('smtp.gmail.com', 587)
+                            server.ehlo()
+                            server.starttls()
+                            server.login("godavarthisrikar@gmail.com", '951568191@Sri')
+                            server.sendmail('godavarthisrikar@gmail.com', "Recipient_Username", content)
+                            server.close()
+                            talk('Email sent!')
+
+                        except:
+                            talk('Sorry ! I am unable to send your message at this moment!')
+
+                elif 'nothing' in Input or 'abort' in Input or 'stop' in Input:
+                    talk('okay')
+                    talk('Bye, have a good day.')
+                    sys.exit()
+
+                elif 'hello' in Input:
+                    talk('hey')
+
+
+                elif 'bye' in Input:
+                    talk('Bye, have a great day.')
+                    sys.exit()
+
+
+                elif 'play music' in Input:
+                    music_folder = 'C:\\Users\\Public\\Music\\'
+                    music = ['friends']
+                    random_music = music_folder + random.choice(music) + '.mp3'
+                    os.system(random_music)
+
+                    talk('Okay, here is your music! Enjoy!')
+                elif "weather" in Input:
+                    api_key = "8ef61edcf1c576d65d836254e11ea420"
+                    base_url = "https://api.openweathermap.org/data/2.5/weather?"
+                    talk("whats the city name")
+                    city_name = GivenCommand()
+                    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+                    response = requests.get(complete_url)
+                    x = response.json()
+                    if x["cod"] != "404":
+                        y = x["main"]
+                        current_temperature = y["temp"]
+                        current_humidiy = y["humidity"]
+                        z = x["weather"]
+                        weather_description = z[0]["description"]
+                        talk(" Temperature in kelvin unit is " +
+                             str(current_temperature) +
+                             "\n humidity in percentage is " +
+                             str(current_humidiy) +
+                             "\n description  " +
+                             str(weather_description))
+                        print(" Temperature in kelvin unit = " +
+                              str(current_temperature) +
+                              "\n humidity (in percentage) = " +
+                              str(current_humidiy) +
+                              "\n description = " +
+                              str(weather_description))
+
+                    else:
+                        talk(" City Not Found ")
+
+
+
+                elif 'time' in Input:
+                    strTime = datetime.datetime.now().strftime("%H:%M:%S")
+                    talk(f"the time is {strTime}")
+
+                elif "calculate" in Input or 'answer' in Input:
+                    app_id = "9YYA4P-HR6J9565YR"
+                    client = wolframalpha.Client(app_id)
+
+                    indx = Input.index('calculate')
+                    query = Input[indx + 1:]
+                    res = client.query(' '.join(query))
+                    answer = next(res.results).text
+                    talk("The answer is " + answer)
+
+
+
+                elif 'joke' in Input:
+                    talk(pyjokes.get_joke())
+
+                if 'hey jessie' in Input:
+                    talk('yesssss')
+
+                    cm = GivenCommand()
+                    talk('Searching...')
+                    try:
+                        try:
+                            res = client.cm(GivenCommand())
+                            outputs = next(res.outputs).text
+                            talk('Alpha says')
+                            talk('Gotcha')
+                            talk(outputs)
+                        except:
+                            outputs = wikipedia.summary(cm, sentences=3)
+                            talk('Gotcha')
+                            talk('Wikipedia says')
+                            talk(outputs)
+                    except:
+                        talk("searching on google for " + cm)
+                        say = Input.replace(' ', '+')
+                        webbrowser.open('https://www.google.co.in/search?q=' + cm)
+
+                if 'remember that' in Input or 'remember this' in Input:
+                    talk(' what should i remember')
+                    m = GivenCommand()
+                    talk('ok')
+
+                elif 'what did you remember' in Input:
+                    talk('yes you said to remember:' + m)
+
+                elif 'how can you help me' in Input  or 'what can you do' in Input:
+                    talk('i can browse eny thing for you ')
+                    time.sleep(1)
+                    talk('i can send mails ')
+                    time.sleep(1)
+                    talk('i am good at mathamatics')
+                    time.sleep(1)
+                    talk('i can update weather for ')
+                    time.sleep(1)
+                    talk('i have a capability of remembering what you say')
+                    time.sleep(1)
+                    talk('i can telll a joke ')
+                    time.sleep(1)
+                    talk('i am updating by srikar  to do more tasks and funtionality')
+                    time.sleep(1)
+                    talk('thanks for your patience mister.')
+
+
+
+
+    else:
+        talk('wrong password')
+        talk('youcant use me')
+
+
+
