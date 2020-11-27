@@ -11,8 +11,8 @@
 
 
 
-#define IO_USERNAME    "glnsrikar"
-#define IO_KEY         "5de6fd7a34994effb2d8fc867f41e9d3"
+#define IO_USERNAME    "xxxxxxxxx"
+#define IO_KEY         "xxxxxxxxxxxxxxxxxxxxxxxxxxx"
 char ssid[] = "hobby kit"; 
 char pass[] = "123456789"; 
 
