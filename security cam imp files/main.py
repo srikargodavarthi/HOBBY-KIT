@@ -12,7 +12,7 @@ def sound():
 def send():
     files = {'photo': open(r"C:\Users\srikar\Desktop\Test\img1.png", 'rb')}
     requests.post(
-        'https://api.telegram.org/bot1367154933:AAHtEJRVfBE2YRd9OOteytcK8hF91SUlNhU/sendphoto?chat_id=749732353',
+        'https://api.telegram.org/bot(xxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)/sendphoto?chat_id=xxxxxxxxx',
         files=files)
 
 
